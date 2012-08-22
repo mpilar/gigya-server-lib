@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 gslib
-~~~~~~~~
+~~~~~
 
 :copyright: (c) 2012 by Miguel Pilar.
-:license: MIT, see LICENSE for more details.
+:license: MIT, see LICENSE.txt for more details.
 
 """
 
@@ -45,10 +45,14 @@ class GSException (Exception):
 class GSConnectionException (GSException):
     pass
 
+
 __FLASK_APP__ = None
 
 
 def initialize_app(app=None):
+    """
+    Use to initialize gslib with a flask app's configuration.
+    """
     if app is not None:
         global __FLASK_APP__
         __FLASK_APP__ = app
@@ -57,10 +61,29 @@ def initialize_app(app=None):
 
 
 class Request (object):
+    """
+    Represents a request to the Gigya Socialize API.
+    Sample usage:
+        response = gslib.Request('gcs.getUserData',
+                    params={'UID': '<user UID>', 'fields': '*'},
+                    use_https=True).send()
+    The Request object behaves like a dict containing the parameters, so the
+    following code is also valid (and does the same as above):
+        request = gslib.Request('gcs.getUserData', use_https=True)
+        request['UID'] = '<user UID>'
+        request['fields'] = '*'
+        response = request.send()
+
+    It's important to note that send() will convert a json response into a
+    native representation automatically, xml responses are returned as text.
+    """
     params = {}
 
     def __init__(self, api_method, api_key=API_KEY,
             secret_key=SECRET_KEY, params={}, use_https=False):
+        """
+        Build a request.
+        """
         if not api_method:
             raise GSException("No API method specified.")
 
@@ -102,9 +125,19 @@ class Request (object):
         return len(self.params)
 
     def clear(self):
+        """
+        Clears any parameters set.
+
+        Important: does not clear any settings configured in the constructor.
+        """
         self.params = {}
 
     def send(self, timeout=None, force_text_response=False):
+        """
+        Perform the request.
+        It's important to note that a json response is converted into a native
+        representation automatically, xml responses are returned as text.
+        """
         if "format" not in self.params:
             self.params["format"] = "json"
 
@@ -130,6 +163,9 @@ class Request (object):
     @classmethod
     def send_request(cls, method, domain, path, params, token, secret,
             use_https, timeout=None):
+        """
+        Performs a Gigya REST request.
+        """
         params["sdk"] = "python" + __version__
 
         scheme = "https" if (use_https or not secret) else "http"
@@ -169,6 +205,9 @@ class Request (object):
     @classmethod
     def oauth_signature(cls, hmac_key, method, scheme, host, port, path,
             request_params):
+        """
+        Calculates an oauth signature
+        """
         normalized_url = "{scheme}://{host}".format(scheme=scheme, host=host)
         if not (port and ((int(port) == 80 and scheme == "http") or
                           (int(port) == 443 and scheme == "https"))):
@@ -198,6 +237,10 @@ class Request (object):
 class SigUtils():
     @classmethod
     def signature_validate(cls, timestamp, UID, signature, friendUID=None, secretKey=None):
+        """
+        Validate a Gigya message signature.
+        See: http://bit.ly/NZ2Bpc
+        """
         try:
             if not (signature and timestamp):
                 return False
@@ -222,9 +265,9 @@ class SigUtils():
     @classmethod
     def _constant_time_compare(cls, a, b):
         """
-            Constant-enough time compare, for comparing signatures and other
-            hashes, do not use to compare plain text passwords (which shouldn't
-            be happening anyways).
+        Constant-enough time compare, for comparing signatures and other
+        hashes, do not use to compare plain text passwords (which shouldn't be
+        happening anyways).
         """
         if len(a) != len(b):
             return False
@@ -235,7 +278,13 @@ class SigUtils():
 
     @classmethod
     def build_signature(cls, key, UID, timestamp, friendUID=None):
-        base_string = str(int(timestamp)) + "_" + UID
+        """
+        Builds a gigya verification signature.
+        """
+        if not friendUID:
+            base_string = str(int(timestamp)) + "_" + UID
+        else:
+            base_string = str(int(timestamp)) + "_" + friendUID + "_" + UID
         hashed = hmac.new(b64decode(key), base_string, sha1)
         return binascii.b2a_base64(hashed.digest())[:-1]
 
@@ -249,15 +298,15 @@ if __name__ == '__main__':
 
     parser = OptionParser()
     parser.add_option("-a", "--api-key", dest="api_key",
-            help="the gigya API_KEY", metavar="API_KEY",
+            help="the Gigya API_KEY", metavar="API_KEY",
             default="2_6cIPnqrOU75VMqiYxer_n375YjH9JSu" \
                       "CFEo55XZAoUFaOBgdI11Qw8JerKOxjBbg")
     parser.add_option("-s", "--secret-key",
             action="store", dest="secret_key",
-            help="the gigya Secret Key")
+            help="the Gigya Secret Key")
     parser.add_option("-m", "--method", default="reports.getSocializeStats",
             action="store", dest="method", metavar="METHOD",
-            help="the gigya method to call ex. METHOD")
+            help="the Gigya method to call ex. METHOD")
     parser.add_option("-p", "--params",
             action="store", dest="params",
             default='{"startDate": "08-09-2012", "endDate": "08-10-2012",'\
