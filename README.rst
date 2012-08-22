@@ -11,9 +11,10 @@ Typical Usage
 =============
 
 Properly initialized, gslib is very simple to use::
+
     # Make a request to gigya (retrieve a user's data from GCS)
     gslib.Request('gcs.getUserData',
-                  params={"UID": '<user UID>, "fields": "*"},
+                  params={"UID": '<user UID>', "fields": "*"},
                   use_https=True).send()
     
     # Verify an event's signature (gigya_dict contains a json response 
