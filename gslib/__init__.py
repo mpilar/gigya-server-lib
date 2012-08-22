@@ -197,7 +197,7 @@ class Request (object):
 
 class SigUtils():
     @classmethod
-    def signature_validate(cls, timestamp, UID, signature, secretKey=None):
+    def signature_validate(cls, timestamp, UID, signature, friendUID=None, secretKey=None):
         try:
             if not (signature and timestamp):
                 return False
@@ -214,7 +214,7 @@ class SigUtils():
                 return False
 
             return cls._constant_time_compare(signature,
-                    cls.build_signature(secretKey, UID, timestamp))
+                cls.build_signature(secretKey, UID, timestamp, friendUID))
 
         except (TypeError, ValueError):
             return False
@@ -234,7 +234,7 @@ class SigUtils():
         return result == 0
 
     @classmethod
-    def build_signature(cls, key, UID, timestamp):
+    def build_signature(cls, key, UID, timestamp, friendUID=None):
         base_string = str(int(timestamp)) + "_" + UID
         hashed = hmac.new(b64decode(key), base_string, sha1)
         return binascii.b2a_base64(hashed.digest())[:-1]
