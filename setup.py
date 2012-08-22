@@ -2,14 +2,14 @@ from distutils.core import setup
 import gslib
 
 setup(
-    name='gigyasocial',
+    name='gigya-server-lib',
     version=gslib.__version__,
     author=gslib.__author__,
     author_email='miguel@miguelpilar.com',
     packages=['gslib'],
-    url='http://pypi.python.org/pypi/GigyaLib/',
+    url='http://pypi.python.org/pypi/GigyaServerLib/',
     license=open('LICENSE.txt').read(),
-    description='The Gigya Social Library (gslib) is a python adaptation of the Gigya Social Server SDK',
+    description='The Gigya Server Library (gslib) is a python adaptation of the Gigya Server SDK',
     long_description=open('README.rst').read(),
     install_requires=[
         "requests>=0.13.6"

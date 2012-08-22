@@ -1,10 +1,10 @@
 ================
-Gigya Social Lib
+Gigya Server Lib
 ================
 
 **Notice: This work is not sponsored or otherwise acknowledged by Gigya Inc in any way shape or form.**
 
-Gigya Social Lib (gslib) is a python adaptation of the `Gigya Social Server SDK <http://developers.gigya.com/030_Server_SDKs>`_ to python.
+Gigya Server Lib (gslib) is a python adaptation of the `Gigya Server SDK <http://developers.gigya.com/030_Server_SDKs>`_ to python.
 
 
 Typical Usage
