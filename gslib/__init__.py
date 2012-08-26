@@ -9,7 +9,7 @@ gslib
 """
 
 __title__ = 'gslib'
-__version__ = "0.1.0"
+__version__ = "0.1.3"
 __author__ = 'Miguel Pilar'
 __license__ = 'MIT'
 __copyright__ = 'Copyright 2012 Miguel Pilar'

@@ -1,10 +1,9 @@
 from distutils.core import setup
-import gslib
 
 setup(
     name='gigya-server-lib',
-    version=gslib.__version__,
-    author=gslib.__author__,
+    version="0.1.3",
+    author="Miguel Pilar",
     author_email='miguel@miguelpilar.com',
     packages=['gslib'],
     url='http://pypi.python.org/pypi/GigyaServerLib/',
@@ -12,7 +11,7 @@ setup(
     description='The Gigya Server Library (gslib) is a python adaptation of the Gigya Server SDK',
     long_description=open('README.rst').read(),
     install_requires=[
-        "requests>=0.13.6"
+        "requests"
     ],
     classifiers=(
         'Development Status :: 3 - Alpha',

@@ -1,1 +1,4 @@
+v0.1.3, 08-20-2012 -- Babby's first setup.py had issues, another quick fix, last one I promise.
+v0.1.2, 08-20-2012 -- Fix for setup.py dying on envs without requests preinstalled.
+v0.1.1, 08-20-2012 -- License.txt formatting for PyPI.
 v0.1.0, 08-20-2012 -- Initial release.
