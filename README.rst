@@ -6,7 +6,6 @@ Gigya Server Lib
 
 Gigya Server Lib (gslib) is a python adaptation of the `Gigya Server SDK <http://developers.gigya.com/030_Server_SDKs>`_ to python.
 
-
 Typical Usage
 =============
 
@@ -24,6 +23,17 @@ Properly initialized, gslib is very simple to use::
                                         gigya_dict['UID'],
                                         gigya_dict['UIDSignature'])
 
+Installation
+------------
+
+To install Gigya Server Lib, simply: ::
+
+    $ pip install gigya-server-lib
+
+Or, if you're running on an old and busted environment: ::
+
+    $ easy_install gigya-server-lib
+
 
 Initialization
 --------------
@@ -35,4 +45,4 @@ If used inside a django application gslib will automatically look for the follow
 
 If used inside a flask application, initialization can be done by calling ``gslib.initialize_app``, gslib will expect similar keys on the flask app's config (``GIGYA_API_KEY`` and ``GIGYA_SECRET_KEY``).
 
-Otherwise the api key and secret key can be sent as arguments to the constructor of a ``Request``.
+Otherwise the api key and secret key can be sent as arguments to the constructor of a ``gslib.Request``.

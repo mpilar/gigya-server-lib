@@ -8,8 +8,9 @@ setup(
     packages=['gslib'],
     url='http://pypi.python.org/pypi/GigyaServerLib/',
     license=open('LICENSE.txt').read(),
-    description='The Gigya Server Library (gslib) is a python adaptation of the Gigya Server SDK',
-    long_description=open('README.rst').read(),
+    description='Gigya Server Library (gslib) is a python adaptation of the Gigya Server SDK',
+    long_description=open('README.rst').read() + '\n\n' +
+                     open('HISTORY.rst').read(),
     install_requires=[
         "requests"
     ],
