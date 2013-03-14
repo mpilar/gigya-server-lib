@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='gigya-server-lib',
-    version="0.1.3",
+    version="0.1.4",
     author="Miguel Pilar",
     author_email='miguel@miguelpilar.com',
     packages=['gslib'],
@@ -12,7 +12,7 @@ setup(
     long_description=open('README.rst').read() + '\n\n' +
                      open('HISTORY.rst').read(),
     install_requires=[
-        "requests"
+        "requests >=1.1.0 < 2.0"
     ],
     classifiers=(
         'Development Status :: 3 - Alpha',

@@ -3,6 +3,10 @@
 History
 -------
 
+0.1.4 (2013-03-14)
++++++++++++++++++++
+- Who would've guessed, changing requests to be versionless has indeed bit me in the ass.
+
 0.1.3 (2012-08-26)
 +++++++++++++++++++
 - changed requests' installed_requires to be versionless (this will probably never bite me in the ass, nope, not at all)

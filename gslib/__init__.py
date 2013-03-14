@@ -9,7 +9,7 @@ gslib
 """
 
 __title__ = 'gslib'
-__version__ = "0.1.3"
+__version__ = "0.1.4"
 __author__ = 'Miguel Pilar'
 __license__ = 'MIT'
 __copyright__ = 'Copyright 2012 Miguel Pilar'
@@ -154,7 +154,7 @@ class Request (object):
             if self.params["format"] == "xml" or force_text_response:
                 return response.text
             if self.params["format"] == "json":
-                return response.json
+                return response.json()
 
         except Exception as ex:
             raise  GSConnectionException(str(ex)), None, \
