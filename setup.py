@@ -12,7 +12,7 @@ setup(
     long_description=open('README.rst').read() + '\n\n' +
                      open('HISTORY.rst').read(),
     install_requires=[
-        "requests >=1.1.0 < 2.0"
+        "requests>=1.1.0"
     ],
     classifiers=(
         'Development Status :: 3 - Alpha',
