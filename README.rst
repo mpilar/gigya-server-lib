@@ -45,4 +45,6 @@ If used inside a django application gslib will automatically look for the follow
 
 If used inside a flask application, initialization can be done by calling ``gslib.initialize_app``, gslib will expect similar keys on the flask app's config (``GIGYA_API_KEY`` and ``GIGYA_SECRET_KEY``).
 
+If used inside a pyramid application, you need add ``config.include("gslib")`` at the main configuration, gslib by default take the keys ``GIGYA_API_KEY`` and ``GIGYA_SECRET_KEY`` in the configuration ``.ini`` file.
+
 Otherwise the api key and secret key can be sent as arguments to the constructor of a ``gslib.Request``.

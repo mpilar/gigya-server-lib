@@ -48,7 +48,6 @@ class GSConnectionException (GSException):
 
 __FLASK_APP__ = None
 
-
 def initialize_app(app=None):
     """
     Use to initialize gslib with a flask app's configuration.
@@ -58,6 +57,15 @@ def initialize_app(app=None):
         __FLASK_APP__ = app
         app.config.setdefault('GIGYA_API_KEY', None)
         app.config.setdefault('GIGYA_SECRET_KEY', None)
+
+__PYRAMID_SETTINGS__ = None
+
+def includeme(config):
+    """
+    Use to initialize gslib with a pyramid project settings.
+    """
+    global __PYRAMID_SETTINGS__
+    __PYRAMID_SETTINGS__ = config.registry.settings
 
 
 class Request (object):
@@ -86,7 +94,13 @@ class Request (object):
         """
         if not api_method:
             raise GSException("No API method specified.")
-
+        
+        if __PYRAMID_SETTINGS__:
+            if not api_key:
+                api_key = __PYRAMID_SETTINGS__['GIGYA_API_KEY']
+            if not secret_key:
+                secret_key = __PYRAMID_SETTINGS__['GIGYA_SECRET_KEY']
+        
         if __FLASK_APP__:
             if not api_key:
                 api_key = __FLASK_APP__.config["GIGYA_API_KEY"]
